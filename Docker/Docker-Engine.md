@@ -95,6 +95,6 @@ sudo docker run hello-world
 
 ## Run docker as non root user
 
-```sh
+```shell
 sudo groupadd docker
 sudo usermod -aG docker $USER
