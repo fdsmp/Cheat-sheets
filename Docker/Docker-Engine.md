@@ -2,13 +2,12 @@
 
 Docker functions as a containerization platform, bundling an application and its dependencies within a container to maintain uniform functionality across varied computing setups. Operating at the OS level, it employs virtualization to package software into containers, offering isolation, resource optimization, and simplifying deployment and scaling for CI/CD workflows.
 
+> [!NOTE]
+> Use Docker as a non-privileged user, or install in rootless mode.
 ## I. Install Docker Engine on Ubuntu
 
 > [!NOTE]
 > Docker Engine for Ubuntu is compatible with x86_64 (or amd64), armhf, arm64, s390x, and ppc64le (ppc64el) architectures.
-
-> [!NOTE]
-> Use Docker as a non-privileged user, or install in rootless mode.
 
 ### Uninstall old versions
 
