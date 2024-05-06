@@ -92,3 +92,15 @@ Remarks about directory paths:
 - The socket path is set to `$XDG_RUNTIME_DIR/docker.sock` by default. `$XDG_RUNTIME_DIR` is typically set to `/run/user/$UID`.
 - The data dir is set to `~/.local/share/docker` by default. The data dir should not be on NFS.
 - The daemon config dir is set to `~/.config/docker` by default. This directory is different from `~/.docker` that is used by the client.
+
+## Unlocking limitations
+
+Exposing privileged port:
+
+To expose privileged ports (< 1024), set `CAP_NET_BIND_SERVICE` on `rootlesskit` binary and restart the daemon.
+
+```shell
+sudo setcap cap_net_bind_service=ep $(which rootlesskit)
+systemctl --user restart docker
+```
+
