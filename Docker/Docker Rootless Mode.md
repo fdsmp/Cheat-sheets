@@ -1,5 +1,5 @@
 # Run the Docker daemon as a non-root user on Ubuntu
-## Pré-requis 
+## Prerequisites
 
 Create a dedicated user with sudo privileges.
 
