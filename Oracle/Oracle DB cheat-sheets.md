@@ -98,7 +98,7 @@ FROM v$instance;
 
 >  Utilisez la commande `describe` ou `DESC` pour  afficher la structure d'une table ou d'une vue.
 
-## Afficher les information des utilisateurs d'une base de données
+## Afficher les informations des utilisateurs d'une base de données
 
 1. Afficher les Utilisateurs du Dictionnaire de Données(`DBA_USERS`) :
 
