@@ -1,0 +1,26 @@
+# Exemple d'utilisation du template pour un déploiement de WordPress
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wordpress
+  template:
+    metadata:
+      labels:
+        app: wordpress
+    spec:
+      containers:
+      - name: wordpress
+        image: wordpress:latest
+        ports:
+        - containerPort: 80
+        # Ajoute d'autres paramètres du conteneur ici, comme les variables d'environnement, les commandes de démarrage, les ressources, etc.
+      # Ajoute d'autres conteneurs ici si nécessaire
+      # volumes:
+      # - name: {{ volumeName }}
+      #   emptyDir: {}
+      # Ajoute d'autres volumes si nécessaire

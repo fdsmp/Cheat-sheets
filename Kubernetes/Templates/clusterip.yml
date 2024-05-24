@@ -1,0 +1,12 @@
+# Exemple d'utilisation du template pour un Service de type ClusterIP pour WordPress
+apiVersion: v1
+kind: Service
+metadata:
+  name: wordpress-service
+spec:
+  selector:
+    app: wordpress
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80

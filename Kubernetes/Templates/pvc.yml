@@ -1,0 +1,14 @@
+# Exemple d'utilisation du template pour un PVC pour WordPress
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: wordpress-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: standard
+  # Ajoute d'autres paramètres du PVC ici si nécessaire
+
