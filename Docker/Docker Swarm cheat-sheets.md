@@ -152,12 +152,14 @@ docker node rm <NODE-ID>
 docker service create --name my_service --replicas 1 -p 80:80 nginx:1.25
 ```
 
+> [!NOTE]
 > --replicas : specify the number of replica tasks you want.
 > --mode global : to start a service  on every node in the swarm.
 > --reserve-cpu : to reserve a given amount number of CPUs.
 > --reserve-memory : to reserve a given amount number of memory.
 > --constraint : to control the nodes a service can be assigned to.
 > --placement-pref : set a placement preference.
+> 
 
 ```shell
 
@@ -170,9 +172,10 @@ docker service create --replicas 9 --name redis_2 \
 docker service update --update-delay 10s --image nginx:1.26 my_service
 ```
 
+> [!NOTE]
 > --update-delay : the time delay between updates to a service task or sets of tasks.
 > --update-parallelism : the maximum number of service tasks that the scheduler updates simultaneously.
-> --update-failure-action : control the update behavior when a task returns `FAILED`.
+> --update-failure-action : control the update behavior when a task returns FAILED.
 > --update-max-failure-ratio : fraction of tasks can fail during an update.
 
 ```shell
