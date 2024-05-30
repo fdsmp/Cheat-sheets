@@ -1,0 +1,32 @@
+version: '3.8'  # Version du fichier de configuration Docker Compose
+services:
+  alpine:
+    image: alpine:latest  # Image Docker à utiliser pour ce service
+    command: sleep infinity  # Commande à exécuter dans le conteneur
+    volumes:
+      - alpinehome:/home  # Montage du volume 'alpinehome' dans le répertoire '/home' du conteneur
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'  # Limite de 0.5 CPU, le conteneur ne peut pas utiliser plus de 0.5 CPU
+          memory: 50M   # Limite de 50 MB de mémoire, le conteneur ne peut pas utiliser plus de 50 MB de RAM
+        reservations:
+          cpus: '0.25'  # Réservation de 0.25 CPU, garantie que 0.25 CPU sera disponible pour ce conteneur
+          memory: 20M   # Réservation de 20 MB de mémoire, garantie que 20 MB de RAM sera disponible pour ce conteneur
+      placement:
+        constraints:
+          - node.labels.worker2 == true  # Contrainte de placement, ce service ne sera exécuté que sur les nœuds avec le label 'worker2' défini à 'true'
+      restart_policy:
+        condition: any  # Politique de redémarrage du conteneur, le conteneur sera redémarré dans n'importe quelle condition de fin
+      replicas: 2  # Nombre de réplicas du service, deux instances du conteneur seront exécutées
+      update_config:
+        parallelism: 1  # Nombre de conteneurs à mettre à jour en parallèle lors de la mise à jour du service
+        delay: 5s  # Délai de 5 secondes entre chaque mise à jour de conteneur
+
+volumes:
+  alpinehome:
+    driver: local  # Utilisation du driver local pour le volume
+    driver_opts:
+      type: nfs  # Type de volume, ici NFS (Network File System)
+      o: addr=192.168.1.100,rw  # Options du montage NFS, spécifie l'adresse du serveur NFS et l'accès en lecture-écriture
+      device: ":/mnt/alpinehome"  # Chemin du partage NFS sur le serveur, ici '/mnt/alpinehome'

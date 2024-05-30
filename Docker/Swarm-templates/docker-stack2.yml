@@ -1,0 +1,40 @@
+version: '3.8'  # Version du fichier de configuration Docker Compose
+
+#### Création du secret 
+# Commande pour créer le secret Docker avec le mot de passe root pour MySQL
+# echo "notSecureChangeMe" | docker secret create mysql_root_password -
+
+services:
+  db:
+    image: mariadb:10.6  # Utilisation de l'image MariaDB version 10.6
+    deploy:
+      restart_policy:
+        condition: any  # Politique de redémarrage : redémarrer dans n'importe quelle condition de fin
+    secrets:
+      - mysql_root_password  # Déclaration de l'utilisation du secret 'mysql_root_password'
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_root_password  # Utilisation du secret pour définir le mot de passe root via un fichier
+    networks:
+      - myoverlaynetwork  # Utilisation du réseau personnalisé 'myoverlaynetwork'
+
+  pma:
+    image: phpmyadmin  # Utilisation de l'image phpMyAdmin
+    deploy:
+      replicas: 1  # Nombre de réplicas pour phpMyAdmin (une seule instance)
+      restart_policy:
+        condition: any  # Politique de redémarrage : redémarrer dans n'importe quelle condition de fin
+    ports:
+      - target: 80  # Port cible à l'intérieur du conteneur
+        published: 80  # Port publié sur l'hôte
+        protocol: tcp  # Protocole utilisé (TCP)
+        mode: ingress  # Mode de publication des ports (ingress)
+    networks:
+      - myoverlaynetwork  # Utilisation du réseau personnalisé 'myoverlaynetwork'
+
+secrets:
+  mysql_root_password:
+    external: true  # Indique que le secret est géré en externe (créé en dehors de ce fichier Compose)
+
+networks:
+  myoverlaynetwork:
+    driver: overlay  # Utilisation du driver 'overlay' pour créer un réseau d'overlay

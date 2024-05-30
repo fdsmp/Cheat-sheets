@@ -82,6 +82,10 @@ Then on the manager node :
 docker node rm <NODE-ID>
 ```
 
+7. Add labels to docker swarm nodes :
+```shell
+docker node update --label-add <LABEL>=true <NODE-ID>
+```
 
 ## Docker Swarm Services
 ### `docker service` Commands and Options [link](https://docs.docker.com/reference/cli/docker/service/create/)
@@ -220,3 +224,13 @@ docker service rm my_service
 ```shell
 docker service update --rollback my_web
 ```
+
+# Commandes de diagnostic :
+
+1 . Afficher les labels d'un noeud :
+
+```shell
+docker node inspect <NODE-IS> --format 'Labels:{{range $key, $value := .Spec.Labels}}{{printf "\n - %s: %s" $key $value}}{{end}}'
+
+```
+
